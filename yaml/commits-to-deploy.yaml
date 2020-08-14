@@ -2,17 +2,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: kingdonb
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/ignore: "false"
+    fluxcd.io/tag.commits-to: regex:^master-[a-f0-9]{7}$
   labels:
     app.kubernetes.io/instance: commits-to
     app.kubernetes.io/name: commits-to
     app.kubernetes.io/part-of: commits-to
     app.kubernetes.io/version: v1
   name: commits-to
-  annotations:
-    fluxcd.io/automated: "true"
-    fluxcd.io/ignore: "false"
-    fluxcd.io/tag.commits-to: regex:^master-[a-f0-9]{7}$
+  namespace: kingdonb
 spec:
   replicas: 1
   selector:
@@ -26,68 +26,77 @@ spec:
         app: commits-to
     spec:
       containers:
-      - command: ["npm"]
-        args: ["start"]
+      - args:
+        - start
+        command:
+        - npm
+        env:
+        - name: NODE_ENV
+          value: development
+        - name: APP_PORT
+          value: "5000"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_URL
+              name: commits-to-secret
+        - name: ENV_NAME
+          valueFrom:
+            secretKeyRef:
+              key: ENV_NAME
+              name: commits-to-secret
+        - name: PAPERTRAIL_HOST
+          valueFrom:
+            secretKeyRef:
+              key: PAPERTRAIL_HOST
+              name: commits-to-secret
+        - name: PAPERTRAIL_PORT
+          valueFrom:
+            secretKeyRef:
+              key: PAPERTRAIL_PORT
+              name: commits-to-secret
+        - name: MAILGUN_DOMAIN
+          valueFrom:
+            secretKeyRef:
+              key: MAILGUN_DOMAIN
+              name: commits-to-secret
+        - name: MAILGUN_FROM
+          valueFrom:
+            secretKeyRef:
+              key: MAILGUN_FROM
+              name: commits-to-secret
+        - name: MAILGUN_KEY
+          valueFrom:
+            secretKeyRef:
+              key: MAILGUN_KEY
+              name: commits-to-secret
+        image: quay.io/kingdonb/commitsto:master-135f85c
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:
             command:
             - curl
             - localhost:5000/api/v1/user/promises?username=kb
+          failureThreshold: 3
           initialDelaySeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
           timeoutSeconds: 5
+        name: commits-to
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
         readinessProbe:
           exec:
             command:
             - curl
             - localhost:5000/api/v1/user/promises?username=kb
+          failureThreshold: 3
           initialDelaySeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
           timeoutSeconds: 5
-        env:
-        - name: NODE_ENV
-          value: development
-        - name: APP_PORT
-          value: '5000'
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: commits-to-secret
-              key: DATABASE_URL
-        - name: ENV_NAME
-          valueFrom:
-            secretKeyRef:
-              name: commits-to-secret
-              key: ENV_NAME
-        - name: PAPERTRAIL_HOST
-          valueFrom:
-            secretKeyRef:
-              name: commits-to-secret
-              key: PAPERTRAIL_HOST
-        - name: PAPERTRAIL_PORT
-          valueFrom:
-            secretKeyRef:
-              name: commits-to-secret
-              key: PAPERTRAIL_PORT
-        - name: MAILGUN_DOMAIN
-          valueFrom:
-            secretKeyRef:
-              name: commits-to-secret
-              key: MAILGUN_DOMAIN
-        - name: MAILGUN_FROM
-          valueFrom:
-            secretKeyRef:
-              name: commits-to-secret
-              key: MAILGUN_FROM
-        - name: MAILGUN_KEY
-          valueFrom:
-            secretKeyRef:
-              name: commits-to-secret
-              key: MAILGUN_KEY
-        imagePullPolicy: IfNotPresent
-        image: quay.io/kingdonb/commitsto:master-135f85c
-        name: commits-to
-        ports:
-        - containerPort: 5000
-          name: http
         resources:
           limits:
             cpu: 250m

@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: kingdonb
   labels:
     app.kubernetes.io/instance: commits-to
     app.kubernetes.io/name: commits-to

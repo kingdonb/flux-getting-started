@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: commits-to
   annotations:
-    dev.okteto.com/auto-ingress: "true"
+    dev.okteto.com/auto-ingress: "domain"
 spec:
   ports:
   - name: http

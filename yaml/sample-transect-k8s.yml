@@ -26,12 +26,8 @@ spec:
         app: sample
     spec:
       containers:
-      - args:
-        - start
-        command:
-        - npm
-        env:
-        - name: NODE_ENV
+      - env:
+        - name: RAILS_ENV
           value: development
         - name: APP_PORT
           value: "3000"

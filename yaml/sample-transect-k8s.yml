@@ -70,7 +70,7 @@ spec:
             secretKeyRef:
               key: MAILGUN_KEY
               name: sample-transect-secret
-        image: registry.cloud.okteto.net/kingdonb/sample_transect:105e925
+        image: registry.cloud.okteto.net/kingdonb/sample_transect:0043c51
         imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:

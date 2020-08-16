@@ -28,7 +28,7 @@ spec:
       containers:
       - env:
         - name: RAILS_ENV
-          value: development
+          value: production
         - name: APP_PORT
           value: "3000"
         - name: DATABASE_URL

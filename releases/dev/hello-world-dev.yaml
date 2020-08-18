@@ -6,6 +6,7 @@ metadata:
   namespace: kingdonb
   annotations:
     fluxcd.io/automated: "true"
+    fluxcd.io/ignore: "true"
     filter.fluxcd.io/chart-image: "semver:*"
 spec:
   releaseName: dev

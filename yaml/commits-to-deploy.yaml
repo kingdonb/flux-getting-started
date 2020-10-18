@@ -70,7 +70,7 @@ spec:
             secretKeyRef:
               key: MAILGUN_KEY
               name: commits-to-secret
-        image: registry.cloud.okteto.net/kingdonb/commitsto:master-9c5fdd64
+        image: registry.cloud.okteto.net/kingdonb/commitsto:master-54996dc4
         imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:

@@ -70,7 +70,7 @@ spec:
             secretKeyRef:
               key: MAILGUN_KEY
               name: commits-to-secret
-        image: quay.io/kingdonb/commitsto:master-dd2f77a
+        image: okteto.dev/commitsto:master-9c5fdd64
         imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:

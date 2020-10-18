@@ -147,8 +147,6 @@ metadata:
     app.kubernetes.io/instance: sample
   annotations:
     dev.okteto.com/generate-host: "true"
-    nginx.ingress.kubernetes.io/proxy-buffering: "on"
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "256k"
   namespace: kingdonb
   name: sample
 spec:

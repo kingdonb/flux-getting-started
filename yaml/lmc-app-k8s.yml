@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/ignore: "false"
+    fluxcd.io/tag.web: regex:^[a-f0-9]{8}$
+  name: lmc-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lmc-app
+  template:
+    metadata:
+      labels:
+        app: lmc-app
+    spec:
+      containers:
+      - image: registry.cloud.okteto.net/kingdonb/lmc-app:3f0f621
+        name: lmc-app
+      imagePullSecrets:
+      - name: regcred
+      - name: okteto-regcred
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 1000
+        fsGroup: 1000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: lmc-app
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  type: ClusterIP  
+  ports:
+  - name: "lmc-app"
+    port: 3000
+  selector:
+    app: lmc-app

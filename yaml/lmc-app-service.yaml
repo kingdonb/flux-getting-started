@@ -4,6 +4,7 @@ metadata:
   name: lmc-app
   annotations:
     dev.okteto.com/auto-ingress: "true"
+  namespace: kingdonb
 spec:
   type: ClusterIP  
   ports:

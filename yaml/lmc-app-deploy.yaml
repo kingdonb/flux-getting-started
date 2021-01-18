@@ -6,6 +6,7 @@ metadata:
     fluxcd.io/ignore: "false"
     fluxcd.io/tag.web: regex:^[a-f0-9]{8}$
   name: lmc-app
+  namespace: kingdonb
 spec:
   replicas: 1
   selector:

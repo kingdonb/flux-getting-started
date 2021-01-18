@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   annotations:
+    fluxcd.io/ignore: "true"
     cert-manager.io/issuer: okteto-http01
     dev.okteto.com/auto-ingress: "false"
     dev.okteto.com/generate-host: ""

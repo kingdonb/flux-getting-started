@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   annotations:
     fluxcd.io/automated: "true"
-    fluxcd.io/ignore: "false"
+    fluxcd.io/ignore: "true"
     fluxcd.io/tag.commits-to: regex:^master-[a-f0-9]{8}$
   labels:
     app.kubernetes.io/instance: commits-to

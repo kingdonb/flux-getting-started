@@ -19,7 +19,7 @@ spec:
         app: lmc-app
     spec:
       containers:
-      - image: registry.cloud.okteto.net/kingdonb/lmc-app:65f8f810
+      - image: registry.cloud.okteto.net/kingdonb/lmc-app:36c0c33b
         name: lmc-app
       imagePullSecrets:
       - name: regcred

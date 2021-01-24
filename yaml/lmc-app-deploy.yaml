@@ -19,8 +19,12 @@ spec:
         app: lmc-app
     spec:
       containers:
-      - image: registry.cloud.okteto.net/kingdonb/lmc-app:auth0-gem-df0ebb1a
+      - image: okteto.dev/lmc-app:df0ebb1a
         name: lmc-app
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
       imagePullSecrets:
       - name: regcred
       - name: okteto-regcred

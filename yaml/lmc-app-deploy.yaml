@@ -21,6 +21,12 @@ spec:
       containers:
       - image: registry.cloud.okteto.net/kingdonb/lmc-app:auth0-gem-bc726e16
         name: lmc-app
+        env:
+        - name: RAILS_MASTER_KEY
+          valueFrom:
+            secretKeyRef:
+              key: master.key
+              name: okteto-lmc-app
         readinessProbe:
           httpGet:
             path: /healthz

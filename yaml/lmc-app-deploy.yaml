@@ -19,7 +19,7 @@ spec:
         app: lmc-app
     spec:
       containers:
-      - image: registry.cloud.okteto.net/kingdonb/lmc-app:8af93c2d
+      - image: registry.cloud.okteto.net/kingdonb/lmc-app:91c38f56
         name: lmc-app
         env:
         - name: RAILS_MASTER_KEY
